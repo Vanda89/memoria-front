@@ -1,0 +1,21 @@
+{
+  "Vue base component": {
+    "scope": "vue",
+    "prefix": "vbase",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "",
+      "</script>",
+      "",
+      "<template>",
+      "  $1",
+      "</template>",
+      "",
+      "<style scoped>",
+      "",
+      "</style>",
+      ""
+    ],
+    "description": "Structure de base d'un composant Vue (script setup + template + style scoped)"
+  }
+}
