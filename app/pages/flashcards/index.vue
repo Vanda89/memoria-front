@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import FlashcardModal from "~/components/FlashcardModal.vue";
-import { useFlashcards } from "~/composables/useFlashcards";
-import type { Flashcard } from "~/types/flashcard.ts";
-import type { Sheet } from "~/types/sheet";
+import FlashcardModal from '~/components/FlashcardModal.vue';
+import { useFlashcards } from '~/composables/useFlashcards';
+import type { Flashcard } from '~/types/flashcard.ts';
 
 const {
   flashcards,
@@ -16,12 +15,12 @@ const {
 const openModal = ref(false);
 const editingFlashcard = ref<Flashcard | null>(null);
 
- function openEditModal(flashcard: Flashcard) {
+function openEditModal(flashcard: Flashcard) {
   editingFlashcard.value = flashcard;
   openModal.value = true;
 }
 
- function closeEditModal() {
+function closeEditModal() {
   editingFlashcard.value = null;
   openModal.value = false;
 }
@@ -41,11 +40,11 @@ async function handleSubmit(payload: {
 </script>
 
 <template>
-  <div class="flashcards-list" v-if="flashcards">
+  <div v-if="flashcards" class="flashcards-list">
     <article
-      class="flashcard"
       v-for="flashcard in flashcards.flashcards"
       :key="flashcard.id"
+      class="flashcard"
     >
       <div>
         <p class="flashcard__question">{{ flashcard.question }}</p>
@@ -60,15 +59,15 @@ async function handleSubmit(payload: {
   </div>
 
   <button @click="openModal ? closeEditModal() : (openModal = true)">
-    {{ openModal ? "Fermer" : "Ajouter une carte" }}
+    {{ openModal ? 'Fermer' : 'Ajouter une carte' }}
   </button>
 
   <FlashcardModal
-    class="flashcard-modal"
     v-if="openModal"
+    class="flashcard-modal"
     :sheets="sheets?.sheets ?? []"
-    :editingFlashcard="editingFlashcard"
-    :isSubmitting="isSubmitting"
+    :editing-flashcard="editingFlashcard"
+    :is-submitting="isSubmitting"
     @close="closeEditModal"
     @submit="handleSubmit"
   />

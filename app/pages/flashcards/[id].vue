@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { gql } from "graphql-tag";
-import type { FlashcardDetail } from "~/types/flashcard.ts";
+import { gql } from 'graphql-tag';
+import type { FlashcardDetail } from '~/types/flashcard.ts';
 
 const GET_FLASHCARD_QUERY = gql`
   query GetFlashcard($id: ID!) {
@@ -22,18 +22,16 @@ const { data } = await useAsyncQuery<{ flashcard: FlashcardDetail }>(
   },
 );
 
-
 const viewAnswer = ref(false);
-
 </script>
 
 <template>
-  <article class="flashcard" v-if="data">
+  <article v-if="data" class="flashcard">
     <p class="flashcard__question">{{ data.flashcard.question }}</p>
     <button @click="viewAnswer = !viewAnswer">
-      {{ viewAnswer ? "Cacher la reponse" : "Voir la reponse" }}
+      {{ viewAnswer ? 'Cacher la reponse' : 'Voir la reponse' }}
     </button>
-    <p class="flashcard__answer" v-show="viewAnswer">
+    <p v-show="viewAnswer" class="flashcard__answer">
       {{ data.flashcard.answer }}
     </p>
     <NuxtLink
@@ -42,9 +40,6 @@ const viewAnswer = ref(false);
       >{{ data.flashcard.sheet?.title }}</NuxtLink
     >
   </article>
-
-  
-
 </template>
 
 <style scoped></style>

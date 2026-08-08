@@ -6,7 +6,7 @@ export interface Flashcard {
 }
 
 export interface FlashcardDetail extends Flashcard {
-    sheet?: {
+  sheet?: {
     title: string;
-  }
+  };
 }

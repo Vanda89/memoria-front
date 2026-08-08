@@ -1,6 +1,6 @@
-import { gql } from "graphql-tag";
-import type { Flashcard } from "~/types/flashcard.ts";
-import type { Sheet } from "~/types/sheet";
+import { gql } from 'graphql-tag';
+import type { Flashcard } from '~/types/flashcard.ts';
+import type { Sheet } from '~/types/sheet';
 
 export function useFlashcards() {
   const isSubmitting = ref(false);
@@ -27,9 +27,7 @@ export function useFlashcards() {
       }
     }
   `;
-  const { data: sheets } = useAsyncQuery<{ sheets: Sheet[] }>(
-    GET_SHEETS_QUERY,
-  );
+  const { data: sheets } = useAsyncQuery<{ sheets: Sheet[] }>(GET_SHEETS_QUERY);
 
   const CREATE_FLASHCARD_MUTATION = gql`
     mutation CreateFlashCard($createFlashcardInput: CreateFlashcardInput!) {
@@ -94,7 +92,7 @@ export function useFlashcards() {
           },
         ],
       });
-      refreshFlashcards();
+      await refreshFlashcards();
     } finally {
       isSubmitting.value = false;
     }
@@ -127,7 +125,7 @@ export function useFlashcards() {
           },
         ],
       });
-      refreshFlashcards();
+      await refreshFlashcards();
     } finally {
       isSubmitting.value = false;
     }
@@ -145,7 +143,7 @@ export function useFlashcards() {
         },
       ],
     });
-    refreshFlashcards();
+    await refreshFlashcards();
   }
 
   return {

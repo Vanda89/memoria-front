@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { gql } from "graphql-tag";
-import type { Sheet } from "~/types/sheet.ts";
+import { gql } from 'graphql-tag';
+import type { Sheet } from '~/types/sheet.ts';
 
 const GET_SHEETS_QUERY = gql`
   query GetSheets {
@@ -18,8 +18,8 @@ const { data } = await useAsyncQuery<{ sheets: Sheet[] }>(GET_SHEETS_QUERY);
 </script>
 
 <template>
-  <div class="sheets-list" v-if="data">
-    <article class="sheet-card" v-for="sheet in data.sheets" :key="sheet.id">
+  <div v-if="data" class="sheets-list">
+    <article v-for="sheet in data.sheets" :key="sheet.id" class="sheet-card">
       <NuxtLink :to="`/sheets/${sheet.id}`">
         <h2 class="sheet-card__title">
           {{ sheet.title }}

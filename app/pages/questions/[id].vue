@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { gql } from "graphql-tag";
-import type { QuestionDetail } from "~/types/question.ts";
+import { gql } from 'graphql-tag';
+import type { QuestionDetail } from '~/types/question.ts';
 
 const GET_QUESTION_QUERY = gql`
   query GetQuestion($id: ID!) {
@@ -26,13 +26,13 @@ const viewCorrectAnswer = ref(false);
 </script>
 
 <template>
-  <article class="question-detail" v-if="data">
+  <article v-if="data" class="question-detail">
     <h1 class="question-detail__title">{{ data.question.question }}</h1>
     <ul class="question-detail__choices">
       <li
-        class="question-detail__choice"
         v-for="choice in data.question.choices"
         :key="choice"
+        class="question-detail__choice"
       >
         {{ choice }}
       </li>
@@ -40,11 +40,11 @@ const viewCorrectAnswer = ref(false);
     <button @click="viewCorrectAnswer = !viewCorrectAnswer">
       {{
         viewCorrectAnswer
-          ? "Cacher la bonne reponse"
-          : "Afficher la bonne reponse"
+          ? 'Cacher la bonne reponse'
+          : 'Afficher la bonne reponse'
       }}
     </button>
-    <p class="question-detail__correct-answer" v-if="viewCorrectAnswer">
+    <p v-if="viewCorrectAnswer" class="question-detail__correct-answer">
       {{ data.question.correctAnswer }}
     </p>
     <NuxtLink

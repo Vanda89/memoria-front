@@ -5,7 +5,7 @@ export function useApolloMutation(mutationDoc: DocumentNode) {
   const nuxtApp = useNuxtApp();
 
   type MutateOptions = Omit<MutationOptions, 'mutation'>;
-  
+
   function mutate(options: MutateOptions) {
     return nuxtApp.$apollo.defaultClient.mutate({
       mutation: mutationDoc,

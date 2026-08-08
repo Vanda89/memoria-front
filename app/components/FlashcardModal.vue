@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Flashcard } from "~/types/flashcard.ts";
-import type { Sheet } from "~/types/sheet";
+import type { Flashcard } from '~/types/flashcard.ts';
+import type { Sheet } from '~/types/sheet';
 
 const props = defineProps<{
   sheets: Sheet[];
@@ -8,9 +8,9 @@ const props = defineProps<{
   isSubmitting: boolean;
 }>();
 
-const selectedSheet = ref(props.editingFlashcard?.sheetId ?? "");
-const question = ref(props.editingFlashcard?.question ?? "");
-const answer = ref(props.editingFlashcard?.answer ?? "");
+const selectedSheet = ref(props.editingFlashcard?.sheetId ?? '');
+const question = ref(props.editingFlashcard?.question ?? '');
+const answer = ref(props.editingFlashcard?.answer ?? '');
 
 defineEmits<{
   close: [];
@@ -21,20 +21,20 @@ defineEmits<{
 <template>
   <Teleport to="body">
     <div class="overlay" @click="$emit('close')"></div>
-    <div class="modal" v-if="sheets">
+    <div v-if="sheets" class="modal">
       <h2>Ajouter une carte</h2>
       <select v-model="selectedSheet">
-        <option :value="sheet.id" v-for="sheet in sheets" :key="sheet.id">
+        <option v-for="sheet in sheets" :key="sheet.id" :value="sheet.id">
           {{ sheet.title }}
         </option>
       </select>
-      <input type="text" placeholder="Question" v-model="question" />
-      <input type="text" placeholder="Réponse" v-model="answer" />
+      <input v-model="question" type="text" placeholder="Question" />
+      <input v-model="answer" type="text" placeholder="Réponse" />
       <button
-        @click="$emit('submit', { sheetId: selectedSheet, question, answer })"
         :disabled="isSubmitting"
+        @click="$emit('submit', { sheetId: selectedSheet, question, answer })"
       >
-        {{ editingFlashcard ? "Modifier" : "Ajouter" }}
+        {{ editingFlashcard ? 'Modifier' : 'Ajouter' }}
       </button>
     </div>
   </Teleport>

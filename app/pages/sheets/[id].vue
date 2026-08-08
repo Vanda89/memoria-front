@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { gql } from "graphql-tag";
-import type { Sheet } from "~/types/sheet.ts";
+import { gql } from 'graphql-tag';
+import type { Sheet } from '~/types/sheet.ts';
 
 const GET_SHEET_QUERY = gql`
   query GetSheet($id: ID!) {
@@ -21,7 +21,7 @@ const { data } = await useAsyncQuery<{ sheet: Sheet }>(GET_SHEET_QUERY, {
 </script>
 
 <template>
-  <article class="sheet-detail" v-if="data">
+  <article v-if="data" class="sheet-detail">
     <h1 class="sheet-detail__title">{{ data.sheet.title }}</h1>
     <div class="sheet-detail__meta">
       <span class="sheet-detail__subject"> {{ data.sheet.subject }}</span>

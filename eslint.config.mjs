@@ -1,0 +1,23 @@
+// @ts-check
+import withNuxt from './.nuxt/eslint.config.mjs';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import unusedImports from 'eslint-plugin-unused-imports';
+
+export default withNuxt(
+  { ignores: ['eslint.config.mjs'] },
+  eslintPluginPrettierRecommended,
+  {
+  plugins: {
+    'unused-imports': unusedImports,
+  },
+  rules: {
+    '@typescript-eslint/no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    // Règle Vue 2 uniquement (interdit les templates multi-racines), obsolète
+    // depuis que Vue 3 les supporte nativement — vue/valid-template-root suffit.
+    'vue/no-multiple-template-root': 'off',
+    'vue/no-unused-properties': 'error',
+    'vue/component-name-in-template-casing': 'error',
+    '@typescript-eslint/no-floating-promises': 'error',
+  },
+});
