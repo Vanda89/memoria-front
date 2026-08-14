@@ -4,7 +4,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import unusedImports from 'eslint-plugin-unused-imports';
 
 export default withNuxt(
-  { ignores: ['eslint.config.mjs'] },
+  { ignores: ['eslint.config.mjs', 'commitlint.config.js'] },
   eslintPluginPrettierRecommended,
   {
   plugins: {

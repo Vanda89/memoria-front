@@ -1,58 +1,64 @@
 <script setup lang="ts">
-import { gql } from 'graphql-tag';
-import type { QuestionDetail } from '~/types/question.ts';
+const { question } = useQuestion(useRoute().params.id as string);
+const hasValidated = ref(false);
+const selectedChoice = ref<string | null>(null);
 
-const GET_QUESTION_QUERY = gql`
-  query GetQuestion($id: ID!) {
-    question(id: $id) {
-      id
-      question
-      correctAnswer
-      choices
-      quizId
-      quiz {
-        title
-      }
-    }
+async function nextQuestion() {
+  const otherQuestions =
+    question.value?.quiz?.questions?.filter(
+      (q) => q.id !== question.value?.id,
+    ) ?? [];
+  const randomIndex = Math.floor(Math.random() * otherQuestions.length);
+  const chosenQuestion = otherQuestions[randomIndex];
+
+  if (chosenQuestion) {
+    await navigateTo(`/questions/${chosenQuestion.id}`);
   }
-`;
-const { data } = await useAsyncQuery<{ question: QuestionDetail }>(
-  GET_QUESTION_QUERY,
-  {
-    id: useRoute().params.id,
-  },
-);
-const viewCorrectAnswer = ref(false);
+}
 </script>
 
 <template>
-  <article v-if="data" class="question-detail">
-    <h1 class="question-detail__title">{{ data.question.question }}</h1>
+  <article v-if="question" class="question-detail">
+    <h1 class="question-detail__title">{{ question.question }}</h1>
     <ul class="question-detail__choices">
       <li
-        v-for="choice in data.question.choices"
+        v-for="choice in question.choices"
         :key="choice"
         class="question-detail__choice"
       >
-        {{ choice }}
+        <label
+          :class="{
+            correct: hasValidated && choice === question.correctAnswer,
+            incorrect:
+              hasValidated &&
+              choice === selectedChoice &&
+              choice !== question.correctAnswer,
+          }"
+        >
+          <input v-model="selectedChoice" type="radio" :value="choice" />
+          {{ choice }}
+        </label>
       </li>
     </ul>
-    <button @click="viewCorrectAnswer = !viewCorrectAnswer">
-      {{
-        viewCorrectAnswer
-          ? 'Cacher la bonne reponse'
-          : 'Afficher la bonne reponse'
-      }}
+    <button @click="hasValidated ? nextQuestion() : (hasValidated = true)">
+      {{ hasValidated ? 'Suivant' : 'Valider' }}
     </button>
-    <p v-if="viewCorrectAnswer" class="question-detail__correct-answer">
-      {{ data.question.correctAnswer }}
+    <p v-if="hasValidated" class="question-detail__correct-answer">
+      {{ question.correctAnswer }}
     </p>
     <NuxtLink
       class="question-detail__link"
-      :to="`/quizzes/${data.question.quizId}`"
-      >{{ data.question.quiz?.title }}</NuxtLink
+      :to="`/quizzes/${question.quizId}`"
+      >{{ question.quiz?.title }}</NuxtLink
     >
   </article>
 </template>
 
-<style scoped></style>
+<style scoped>
+.correct {
+  color: green;
+}
+.incorrect {
+  color: red;
+}
+</style>

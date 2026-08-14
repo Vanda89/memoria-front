@@ -8,4 +8,5 @@ export interface QuizDetail extends Quiz {
   sheet?: {
     title: string;
   };
+  questions?: Question[];
 }

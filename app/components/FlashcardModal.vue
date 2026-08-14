@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import type { Flashcard } from '~/types/flashcard.ts';
-import type { Sheet } from '~/types/sheet';
-
 const props = defineProps<{
   sheets: Sheet[];
   editingFlashcard: Flashcard | null;

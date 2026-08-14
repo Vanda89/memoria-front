@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   devServer: { port: 3001, host: '0.0.0.0' },
   modules: ['@nuxtjs/apollo', '@nuxt/eslint'],
+  imports: {
+    dirs: ['types'],
+  },
   eslint: {
     config: {
       typescript: {

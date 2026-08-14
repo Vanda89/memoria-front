@@ -9,5 +9,6 @@ export interface Question {
 export interface QuestionDetail extends Question {
   quiz?: {
     title: string;
+    questions?: { id: string }[];
   };
 }

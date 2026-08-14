@@ -1,7 +1,3 @@
-import { gql } from 'graphql-tag';
-import type { Flashcard } from '~/types/flashcard.ts';
-import type { Sheet } from '~/types/sheet';
-
 export function useFlashcards() {
   const isSubmitting = ref(false);
 
@@ -18,16 +14,6 @@ export function useFlashcards() {
   const { data: flashcards, refresh: refreshFlashcards } = useAsyncQuery<{
     flashcards: Flashcard[];
   }>(GET_FLASHCARDS_QUERY);
-
-  const GET_SHEETS_QUERY = gql`
-    query GetSheets {
-      sheets {
-        id
-        title
-      }
-    }
-  `;
-  const { data: sheets } = useAsyncQuery<{ sheets: Sheet[] }>(GET_SHEETS_QUERY);
 
   const CREATE_FLASHCARD_MUTATION = gql`
     mutation CreateFlashCard($createFlashcardInput: CreateFlashcardInput!) {
@@ -93,6 +79,8 @@ export function useFlashcards() {
         ],
       });
       await refreshFlashcards();
+    } catch (error) {
+      console.error('Error adding flashcard:', error);
     } finally {
       isSubmitting.value = false;
     }
@@ -126,6 +114,8 @@ export function useFlashcards() {
         ],
       });
       await refreshFlashcards();
+    } catch (error) {
+      console.error('Error updating flashcard:', error);
     } finally {
       isSubmitting.value = false;
     }
@@ -148,10 +138,33 @@ export function useFlashcards() {
 
   return {
     flashcards,
-    sheets,
     isSubmitting,
     addFlashcard,
     updateFlashcard,
     deleteFlashcard,
   };
+}
+
+export function useFlashcard(id: string) {
+  const GET_FLASHCARD_QUERY = gql`
+    query GetFlashcard($id: ID!) {
+      flashcard(id: $id) {
+        id
+        question
+        answer
+        sheetId
+        sheet {
+          title
+        }
+      }
+    }
+  `;
+  const { data: flashcard } = useAsyncQuery<{ flashcard: FlashcardDetail }>(
+    GET_FLASHCARD_QUERY,
+    {
+      id: id,
+    },
+  );
+
+  return { flashcard };
 }

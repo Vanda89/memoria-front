@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import FlashcardModal from '~/components/FlashcardModal.vue';
 import { useFlashcards } from '~/composables/useFlashcards';
-import type { Flashcard } from '~/types/flashcard.ts';
+import { useSheets } from '~/composables/useSheets';
+
+const { sheets } = useSheets();
 
 const {
   flashcards,
-  sheets,
   isSubmitting,
   addFlashcard,
   updateFlashcard,
