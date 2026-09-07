@@ -31,9 +31,11 @@ export function useSheet(id: string) {
     }
   `;
 
-  const { data: sheet } = useAsyncQuery<{ sheet: Sheet }>(GET_SHEET_QUERY, {
+  const { data } = useAsyncQuery<{ sheet: Sheet }>(GET_SHEET_QUERY, {
     id: id,
   });
+
+  const sheet = computed(() => data.value?.sheet ?? null);
 
   return { sheet };
 }

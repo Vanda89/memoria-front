@@ -122,18 +122,22 @@ export function useFlashcards() {
   }
 
   async function deleteFlashcard(id: string) {
-    await mutateDeleteFlashcard({
-      variables: {
-        id,
-      },
-      awaitRefetchQueries: true,
-      refetchQueries: [
-        {
-          query: GET_FLASHCARDS_QUERY,
+    try {
+      await mutateDeleteFlashcard({
+        variables: {
+          id,
         },
-      ],
-    });
-    await refreshFlashcards();
+        awaitRefetchQueries: true,
+        refetchQueries: [
+          {
+            query: GET_FLASHCARDS_QUERY,
+          },
+        ],
+      });
+      await refreshFlashcards();
+    } catch (error) {
+      console.error('Error deleting flashcard:', error);
+    }
   }
 
   return {
@@ -159,12 +163,14 @@ export function useFlashcard(id: string) {
       }
     }
   `;
-  const { data: flashcard } = useAsyncQuery<{ flashcard: FlashcardDetail }>(
+  const { data } = useAsyncQuery<{ flashcard: FlashcardDetail }>(
     GET_FLASHCARD_QUERY,
     {
       id: id,
     },
   );
+
+  const flashcard = computed(() => data.value?.flashcard ?? null);
 
   return { flashcard };
 }
