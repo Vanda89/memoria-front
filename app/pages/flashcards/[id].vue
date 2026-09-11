@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { flashcard } = useFlashcard(useRoute().params.id as string);
+const route = useRoute();
+const flashcardId = String(route.params.id);
+const { flashcard } = useFlashcard(flashcardId);
 
 const viewAnswer = ref(false);
 </script>

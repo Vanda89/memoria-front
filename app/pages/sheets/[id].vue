@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { sheet } = useSheet(useRoute().params.id as string);
+const route = useRoute();
+const sheetId = String(route.params.id);
+const { sheet } = useSheet(sheetId);
 </script>
 
 <template>

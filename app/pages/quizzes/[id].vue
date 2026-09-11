@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { quiz } = useQuiz(useRoute().params.id as string);
+const route = useRoute();
+const quizId = String(route.params.id);
+const { quiz } = useQuiz(quizId);
 </script>
 
 <template>

@@ -2,6 +2,7 @@
   "recommendations": [
     "Vue.volar",
     "dbaeumer.vscode-eslint",
+    "deque-systems.vscode-axe-linter",
     "esbenp.prettier-vscode",
     "GraphQL.vscode-graphql",
     "GraphQL.vscode-graphql-syntax"

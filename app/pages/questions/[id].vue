@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const { question } = useQuestion(useRoute().params.id as string);
+const route = useRoute();
+const questionId = String(route.params.id);
+const { question } = useQuestion(questionId);
+
 const hasValidated = ref(false);
 const selectedChoice = ref<string | null>(null);
 

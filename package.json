@@ -20,8 +20,10 @@
     "@apollo/client": "^3.14.1",
     "@nuxt/eslint": "^1.17.0",
     "@nuxtjs/apollo": "^5.0.0-alpha.16",
+    "@pinia/nuxt": "^1.0.2",
     "eslint": "^10.8.1",
     "nuxt": "^4.5.1",
+    "pinia": "^4.0.3",
     "vue": "^3.5.40",
     "vue-router": "^5.2.0"
   },
@@ -32,6 +34,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-unused-imports": "^4.4.1",
+    "eslint-plugin-vuejs-accessibility": "^2.6.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.3.0",
     "prettier": "^3.9.6",

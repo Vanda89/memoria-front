@@ -16,15 +16,21 @@ defineEmits<{
 
 <template>
   <Teleport to="body">
-    <div class="overlay" @click="$emit('close')"></div>
+    <button
+      class="overlay"
+      aria-label="Fermer la modale"
+      @click="$emit('close')"
+    ></button>
     <div v-if="sheets" class="modal">
       <h2>Ajouter un quiz</h2>
-      <select v-model="selectedSheet">
+      <label for="quiz-sheet">Fiche</label>
+      <select id="quiz-sheet" v-model="selectedSheet">
         <option v-for="sheet in sheets" :key="sheet.id" :value="sheet.id">
           {{ sheet.title }}
         </option>
       </select>
-      <input v-model="title" type="text" placeholder="Titre" />
+      <label for="quiz-title">Titre</label>
+      <input id="quiz-title" v-model="title" type="text" placeholder="Titre" />
       <button
         :disabled="isSubmitting"
         @click="$emit('submit', { sheetId: selectedSheet, title })"
